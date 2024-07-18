@@ -14,7 +14,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
-    white: "bg-white shadow-sm",
+    white: "bg-white",
     transparent: "bg-transparent",
   };
 
@@ -31,7 +31,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
         className={`relative`}
       >
         <div className="py-6 px-8 text-center">
-        <img src="/img/Occasion360_logo.png" height={75} width={75} alt="" style={{ margin: 'auto' }}/>
+        <img src="/img/logo.svg" height={75} width={75} alt="" style={{ margin: 'auto' }}/>
           <Typography
             variant="h6"
             color={sidenavType === "black" ? "white" : "blue-gray"}
@@ -101,8 +101,8 @@ export function Sidenav({ brandImg, brandName, routes }) {
 }
 
 Sidenav.defaultProps = {
-  brandImg: "/img/Occasion360_logo.png",
-  brandName: "Occasion360",
+  brandImg: "/img/logo.svg",
+  brandName: "Guichet Unique",
 };
 
 Sidenav.propTypes = {

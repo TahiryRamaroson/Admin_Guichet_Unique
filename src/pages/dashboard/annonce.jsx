@@ -24,189 +24,189 @@ import { jwtDecode } from "jwt-decode";
 
 export function Annonce() {
 
-  const navigate = useNavigate();
-  const [dataAnnonces, setDataAnnonces] = useState([]);
+  // const navigate = useNavigate();
+  // const [dataAnnonces, setDataAnnonces] = useState([]);
 
-  const getAnnonces = async () => {
+  // const getAnnonces = async () => {
   
-    const apiAnnonce = "https://api-finalclouds5-production.up.railway.app/annonces/back-office"; 
+  //   const apiAnnonce = "https://api-finalclouds5-production.up.railway.app/annonces/back-office"; 
 
-    try {
-      const reponsePays = await fetch(apiAnnonce, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-        },
-      });
-      if (!reponsePays.ok) {
-        throw new Error('Erreur lors de la demande.');
-      }
-      const data = await reponsePays.json();
-      setDataAnnonces(data.result);
-      console.log("dataAnnonce après la mise à jour d'état :", data);
-    } catch (error) {
-      console.error("nisy erreuuuurrrr: " + error.message);
-    }
+  //   try {
+  //     const reponsePays = await fetch(apiAnnonce, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+  //       },
+  //     });
+  //     if (!reponsePays.ok) {
+  //       throw new Error('Erreur lors de la demande.');
+  //     }
+  //     const data = await reponsePays.json();
+  //     setDataAnnonces(data.result);
+  //     console.log("dataAnnonce après la mise à jour d'état :", data);
+  //   } catch (error) {
+  //     console.error("nisy erreuuuurrrr: " + error.message);
+  //   }
 
-  };
+  // };
 
-  useEffect(() => {
-    // Fonction pour vérifier la présence du token dans le localStorage
-    const checkToken = () => {
-      const token = localStorage.getItem('authToken');
+  // useEffect(() => {
+  //   // Fonction pour vérifier la présence du token dans le localStorage
+  //   const checkToken = () => {
+  //     const token = localStorage.getItem('authToken');
 
-      // Si le token est présent, l'utilisateur est connecté
-      if (!token) {
-        navigate('/auth/sign-in');
-      }
+  //     // Si le token est présent, l'utilisateur est connecté
+  //     if (!token) {
+  //       navigate('/auth/sign-in');
+  //     }
 
-      try {
-        const decodedtoken = jwtDecode(token);
-        const now = Date.now() / 1000;
-        if(now > decodedtoken.exp) localStorage.removeItem('authToken');
-      } catch (error) {
-        localStorage.removeItem('authToken');
-        navigate('/auth/sign-in');
-      }
+  //     try {
+  //       const decodedtoken = jwtDecode(token);
+  //       const now = Date.now() / 1000;
+  //       if(now > decodedtoken.exp) localStorage.removeItem('authToken');
+  //     } catch (error) {
+  //       localStorage.removeItem('authToken');
+  //       navigate('/auth/sign-in');
+  //     }
 
-    };
+  //   };
 
     
 
-    // Appel de la fonction de vérification lors du chargement de la page
-    checkToken();
-    getAnnonces();
-    }, []);
+  //   // Appel de la fonction de vérification lors du chargement de la page
+  //   checkToken();
+  //   getAnnonces();
+  //   }, []);
 
     
 
-    const submitAccepter = async (e, id, description) => {
-      e.preventDefault();
+  //   const submitAccepter = async (e, id, description) => {
+  //     e.preventDefault();
 
-      const structAccept = {
-      id_voiture : "",  
-      prix : "",
-      status : "10",
-      description : ""+ description
-      }
+  //     const structAccept = {
+  //     id_voiture : "",  
+  //     prix : "",
+  //     status : "10",
+  //     description : ""+ description
+  //     }
 
-      const structCom = {
-        id_annonce : ""+id,
-        valeur : "10"
-      }
+  //     const structCom = {
+  //       id_annonce : ""+id,
+  //       valeur : "10"
+  //     }
 
-      const annonce1Array = dataAnnonces.filter((item) => item.id == id);
-      const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
-      //annonce1.status = "10";
-      structAccept.id_voiture = annonce1.voiture.id;
-      structAccept.prix = annonce1.prix;
-      console.log("Annonce après validation : " + JSON.stringify(structAccept));
+  //     const annonce1Array = dataAnnonces.filter((item) => item.id == id);
+  //     const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
+  //     //annonce1.status = "10";
+  //     structAccept.id_voiture = annonce1.voiture.id;
+  //     structAccept.prix = annonce1.prix;
+  //     console.log("Annonce après validation : " + JSON.stringify(structAccept));
   
-      // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
-      const apicom = "https://api-finalclouds5-production.up.railway.app/commissions";
+  //     // Votre logique pour envoyer les données vers l'API
+  //     const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
+  //     const apicom = "https://api-finalclouds5-production.up.railway.app/commissions";
   
-      try {
+  //     try {
 
-        const responseCom = await fetch(apicom , {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          body: JSON.stringify(structCom),
-        });
+  //       const responseCom = await fetch(apicom , {
+  //         method: 'POST', 
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+  //         },
+  //         body: JSON.stringify(structCom),
+  //       });
 
-        const response = await fetch(apimodif , {
-          method: 'PUT', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          body: JSON.stringify(structAccept),
-        });
+  //       const response = await fetch(apimodif , {
+  //         method: 'PUT', 
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+  //         },
+  //         body: JSON.stringify(structAccept),
+  //       });
   
-        if (!response.ok) {
-          throw new Error('Erreur lors de la demande modifier status annonce');
-        }
+  //       if (!response.ok) {
+  //         throw new Error('Erreur lors de la demande modifier status annonce');
+  //       }
 
-        if (!responseCom.ok) {
-          throw new Error('Erreur lors de la demande ajout commission');
-        }
+  //       if (!responseCom.ok) {
+  //         throw new Error('Erreur lors de la demande ajout commission');
+  //       }
   
-        const responseData = await response.json();
-        const responseDataCom = await responseCom.json();
-        console.log('Réponse de API accept Annonce :', responseData);
-        console.log('Réponse de API Commission :', responseDataCom);
-        //dataMarques.push(responseData.result);
-        //window.location.reload();
-        getAnnonces();
-        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
-      } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire :', error.message);
-      }
-    };
+  //       const responseData = await response.json();
+  //       const responseDataCom = await responseCom.json();
+  //       console.log('Réponse de API accept Annonce :', responseData);
+  //       console.log('Réponse de API Commission :', responseDataCom);
+  //       //dataMarques.push(responseData.result);
+  //       //window.location.reload();
+  //       getAnnonces();
+  //       // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+  //     } catch (error) {
+  //       console.error('Erreur lors de la soumission du formulaire :', error.message);
+  //     }
+  //   };
 
-    const submitRefuser = async (e, id) => {
-      e.preventDefault();
+  //   const submitRefuser = async (e, id) => {
+  //     e.preventDefault();
 
-      const structRefuse = {
-      id_voiture : "",  
-      prix : "",
-      status : "-10"
-      }
+  //     const structRefuse = {
+  //     id_voiture : "",  
+  //     prix : "",
+  //     status : "-10"
+  //     }
 
-      const annonce1Array = dataAnnonces.filter((item) => item.id == id);
-      const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
-      //annonce1.status = "10";
-      structRefuse.id_voiture = annonce1.voiture.id;
-      structRefuse.prix = annonce1.prix;
-      console.log("Annonce après validation : " + JSON.stringify(structRefuse));
+  //     const annonce1Array = dataAnnonces.filter((item) => item.id == id);
+  //     const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
+  //     //annonce1.status = "10";
+  //     structRefuse.id_voiture = annonce1.voiture.id;
+  //     structRefuse.prix = annonce1.prix;
+  //     console.log("Annonce après validation : " + JSON.stringify(structRefuse));
   
-      // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
+  //     // Votre logique pour envoyer les données vers l'API
+  //     const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
   
-      try {
-        const response = await fetch(apimodif , {
-          method: 'PUT', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          body: JSON.stringify(structRefuse),
-        });
+  //     try {
+  //       const response = await fetch(apimodif , {
+  //         method: 'PUT', 
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+  //         },
+  //         body: JSON.stringify(structRefuse),
+  //       });
   
-        if (!response.ok) {
-          throw new Error('Erreur lors de la demande.');
-        }
+  //       if (!response.ok) {
+  //         throw new Error('Erreur lors de la demande.');
+  //       }
   
-        const responseData = await response.json();
-        console.log('Réponse de API accept Annonce :', responseData);
-        //dataMarques.push(responseData.result);
-        //window.location.reload();
-        getAnnonces();
-        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
-      } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire :', error.message);
-      }
-    };
+  //       const responseData = await response.json();
+  //       console.log('Réponse de API accept Annonce :', responseData);
+  //       //dataMarques.push(responseData.result);
+  //       //window.location.reload();
+  //       getAnnonces();
+  //       // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+  //     } catch (error) {
+  //       console.error('Erreur lors de la soumission du formulaire :', error.message);
+  //     }
+  //   };
     
 
   return (
     <>
-      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover	bg-center">
-        <div className="absolute inset-0 h-full w-full bg-gray-900/75" />
+      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.jpg')] bg-cover	bg-center">
+        
       </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
         <CardBody className="p-4">
           <div className="px-4 pb-4">
             <Typography variant="h3" color="blue-gray" className="mb-2">
-              Liste des annonces à valider
+              Liste
             </Typography>
             <br/>
             <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-            { dataAnnonces && dataAnnonces.map(
+            {/* { dataAnnonces && dataAnnonces.map(
                 ({id, datePub, prix, utilisateur, voiture, description, photos}) => (
                   <Card key={id} color="transparent" shadow={false}>
                     <CardHeader
@@ -303,7 +303,7 @@ export function Annonce() {
                         
                     </CardFooter>
                   </Card>
-                ))}
+                ))} */}
             </div>
           </div>
         </CardBody>

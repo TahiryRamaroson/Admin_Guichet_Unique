@@ -80,7 +80,7 @@ export function DashboardNavbar() {
               className="hidden items-center gap-1 px-4 xl:flex normal-case"
               onClick={logout}
             >
-              <PowerIcon className="h-10 w-10 text-blue-gray-500" />
+              <PowerIcon className="h-10 w-10 text-red-500" />
               <Typography variant="h6" color="blue-gray">Log out</Typography>
             </Button>
             <IconButton
@@ -88,7 +88,7 @@ export function DashboardNavbar() {
               color="blue-gray"
               className="grid xl:hidden"
             >
-              <PowerIcon className="h-6 w-6 text-blue-gray-500" />
+              <PowerIcon className="h-6 w-6 text-red-500" />
             </IconButton>
           </Link>
         </div>
