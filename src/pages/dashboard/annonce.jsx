@@ -201,8 +201,8 @@ export function Annonce() {
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
         <CardBody className="p-4">
           <div className="px-4 pb-4">
-            <Typography variant="h3" color="blue-gray" className="mb-2">
-              Liste
+            <Typography variant="h3" color="blue-gray" className="mb-2 text-center">
+              Historique d&apos;utilisation de l&apos;application
             </Typography>
             <br/>
             <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">

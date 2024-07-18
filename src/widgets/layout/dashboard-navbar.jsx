@@ -81,7 +81,7 @@ export function DashboardNavbar() {
               onClick={logout}
             >
               <PowerIcon className="h-10 w-10 text-red-500" />
-              <Typography variant="h6" color="blue-gray">Log out</Typography>
+              <Typography variant="h6" color="blue-gray">Déconnexion</Typography>
             </Button>
             <IconButton
               variant="text"

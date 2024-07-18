@@ -1,11 +1,12 @@
 import {
-  PresentationChartBarIcon,
   ServerStackIcon,
   RectangleStackIcon,
-  DocumentTextIcon,
   ComputerDesktopIcon,
+  CogIcon,
+  HomeIcon,
+  ArrowPathRoundedSquareIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Annonce, Gestion, Details, Marque, Modele, Categorie, Etat, Pays, Energie, Boitevitesse } from "@/pages/dashboard";
+import { Home, Annonce, Gestion, Utilisateur, Profil} from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -17,83 +18,40 @@ export const routes = [
     layout: "dashboard",
     pages: [
       {
-        icon: <PresentationChartBarIcon {...icon} />,
-        name: "Statistique",
+        icon: <HomeIcon {...icon} />,
+        name: "Accueil",
         path: "/home",
         element: <Home />,
         op: "",
       },
       {
-        icon: <DocumentTextIcon {...icon} />,
-        name: "Annonce",
+        icon: <CogIcon {...icon} />,
+        name: "Paramétrage",
+        path: "/gestion",
+        element: <Gestion />,
+        op: "",
+      },
+      {
+        icon: <ArrowPathRoundedSquareIcon {...icon} />,
+        name: "Historique",
         path: "/annonce",
         element: <Annonce />,
         op: "",
       },
       {
         icon: <ComputerDesktopIcon {...icon} />,
-        name: "Gestion",
-        path: "/gestion",
-        element: <Gestion />,
-        op: "",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Details",
-        path: "/details",
-        element: <Details />,
+        name: "Utilisateur",
+        path: "/utilisateur",
+        element: <Utilisateur />,
         op: "none",
       },
       {
         icon: <ComputerDesktopIcon {...icon} />,
-        name: "Marque",
-        path: "/marque",
-        element: <Marque />,
+        name: "Profil",
+        path: "/profil",
+        element: <Profil />,
         op: "none",
       },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Modèle",
-        path: "/modele",
-        element: <Modele />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Catégorie",
-        path: "/categorie",
-        element: <Categorie />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Etat",
-        path: "/etat",
-        element: <Etat />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Pays",
-        path: "/pays",
-        element: <Pays />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Energie",
-        path: "/energie",
-        element: <Energie />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Boite de vitesse",
-        path: "/boitevitesse",
-        element: <Boitevitesse />,
-        op: "none",
-      },
-      
     ],
   },
   {
