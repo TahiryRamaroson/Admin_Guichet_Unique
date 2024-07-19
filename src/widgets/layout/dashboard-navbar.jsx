@@ -5,6 +5,7 @@ import {
   Button,
   IconButton,
   Breadcrumbs,
+  Chip,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
@@ -65,6 +66,7 @@ export function DashboardNavbar() {
           </Typography>
         </div>
         <div className="flex items-center">
+          <Chip variant="ghost" value="Admin" className="mr-5" icon={<UserCircleIcon/>} />
           <IconButton
             variant="text"
             color="blue-gray"
@@ -80,15 +82,15 @@ export function DashboardNavbar() {
               className="hidden items-center gap-1 px-4 xl:flex normal-case"
               onClick={logout}
             >
-              <PowerIcon className="h-10 w-10 text-red-500" />
-              <Typography variant="h6" color="blue-gray">Déconnexion</Typography>
+              <PowerIcon className="h-8 w-8 text-red-500" />
+              <Typography variant="medium" color="blue-gray">Déconnexion</Typography>
             </Button>
             <IconButton
               variant="text"
               color="blue-gray"
               className="grid xl:hidden"
             >
-              <PowerIcon className="h-6 w-6 text-red-500" />
+              <PowerIcon className="h-5 w-5 text-red-500" />
             </IconButton>
           </Link>
         </div>

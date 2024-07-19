@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
     Card,
     Popover,
@@ -12,15 +14,22 @@ import {
     Select, 
     Option,
     Chip,
+    Tabs,
+    TabsHeader,
+    TabsBody,
+    Tab,
+    TabPanel,
   } from "@material-tailwind/react";
 
-  import { PencilIcon, TrashIcon, InformationCircleIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon, InformationCircleIcon, PlusIcon, MagnifyingGlassIcon} from "@heroicons/react/24/solid";
 
-  import {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
   
   export function Utilisateur() {
+
+    const [type, setType] = React.useState("card");
 
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -41,76 +50,191 @@ import { jwtDecode } from "jwt-decode";
         >
           <PopoverHandler>
             
-              <Button className="flex items-center">
+              <Button className="flex items-center text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                 <PlusIcon className="h-4 w-4" />
                 <span className="ml-2">Ajout</span>
               </Button>
             
           </PopoverHandler>
           <PopoverContent>
-            <Card color="transparent" shadow={false}>
-              <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
-                <div className="mb-1 flex flex-col gap-6">
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Nouveau nom
-                  </Typography>
-                  <Input
-                    size="lg"
-                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    name="nom"
-                    value=""
-                    required
-                  />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Nouvelle année de sortie
-                  </Typography>
-                  <Input
-                    size="lg"
-                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    name="newanneeSortie"
-                    value=""
-                    required
-                  />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Nouvelle marque
-                  </Typography>
-                  <Select 
-                    label="Marque"
-                    name="newMarque"
-                    size="lg"
-                  >
-                        <Option value="">test</Option>
-                  </Select>
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Nouvelle catégorie
-                  </Typography>
-                  <Select 
-                    label="Catégorie"
-                    size="lg"
-                    name="newCategorie"
-                  >
-                    
-                        <Option value="">test</Option>
-                  </Select>
-                </div>
-                <Button className="mt-6" type="submit" fullWidth>
-                  Valider
+            <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
+
+              <Card className="w-full max-w-[24rem]">
+                <CardBody>
+                  <Tabs value={type} className="overflow-visible">
+                    <TabsHeader className="relative z-0 ">
+                      <Tab value="card" onClick={() => setType("card")}>
+                        Etape 1
+                      </Tab>
+                      <Tab value="paypal" onClick={() => setType("paypal")}>
+                        Etape 2
+                      </Tab>
+                    </TabsHeader>
+                    <TabsBody
+                      className="!overflow-x-hidden !overflow-y-visible"
+                      animate={{
+                        initial: {
+                          x: type === "card" ? 400 : -400,
+                        },
+                        mount: {
+                          x: 0,
+                        },
+                        unmount: {
+                          x: type === "card" ? 400 : -400,
+                        },
+                      }}
+                    >
+                      <TabPanel value="card" className="p-0">
+                        <div className="mb-1 mt-3 flex flex-col gap-6">
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Nom
+                          </Typography>
+                          <Input
+                            size="lg"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                              className: "before:content-none after:content-none",
+                            }}
+                            name="nom"
+                            value=""
+                            required
+                          />
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Prénom
+                          </Typography>
+                          <Input
+                            size="lg"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                              className: "before:content-none after:content-none",
+                            }}
+                            name="newanneeSortie"
+                            value=""
+                            required
+                          />
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Profil
+                          </Typography>
+                          <Select 
+                            label="Marque"
+                            name="newMarque"
+                            size="lg"
+                          >
+                                <Option value="">test</Option>
+                          </Select>
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Statut
+                          </Typography>
+                          <Select 
+                            label="Catégorie"
+                            size="lg"
+                            name="newCategorie"
+                          >
+                          
+                                <Option value="">test</Option>
+                          </Select>
+                        </div>
+                      </TabPanel>
+                      <TabPanel value="paypal" className="p-0">
+                        <div className="mb-1 mt-3 flex flex-col gap-6">
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                              Adresse
+                            </Typography>
+                            <Input
+                              size="lg"
+                              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                              name="nom"
+                              value=""
+                              required
+                            />
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                              Contact
+                            </Typography>
+                            <Input
+                              size="lg"
+                              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                              name="newanneeSortie"
+                              value=""
+                              required
+                            />
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                              Email
+                            </Typography>
+                            <Input
+                              type="email"
+                              size="lg"
+                              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                              name="newanneeSortie"
+                              value=""
+                              required
+                            />
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                              Mot de passe
+                            </Typography>
+                            <Input
+                              type="password"
+                              size="lg"
+                              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                              name="newanneeSortie"
+                              value=""
+                              required
+                            />
+                        </div>
+                      </TabPanel>
+                    </TabsBody>
+                  </Tabs>
+                </CardBody>
+              </Card>
+
+              <Card color="transparent" shadow={false}>
+                <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2" type="submit" fullWidth>
+                  Ajouter
                 </Button>
-              </form>
-            </Card>
+              </Card>
+            </form>
           </PopoverContent>
         </Popover>
         </div>
         
+        <form>
+          <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
+                              
+            <Input label="recherche"
+            name="nom"
+            value=""
+            />
+
+            <Select label="Profil"
+            >
+              <Option value="">test</Option>
+            </Select>
+
+            <Select label="Statut"
+            >
+              <Option value="">test</Option>
+            </Select>
+
+            <Button variant="outlined" type="submit" className="rounded-full border-2" color="green">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </Button>
+                              
+          </div>
+        </form>
       
       <CardBody className="overflow-scroll px-0">
-        <table className="mt-12 w-full min-w-max table-auto">
+        <table className="mt-6 w-full min-w-max table-auto">
           <thead>
             <tr>
               
@@ -246,74 +370,164 @@ import { jwtDecode } from "jwt-decode";
                     >
                       <PopoverHandler>
                         
-                            <Button>
+                            <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <PencilIcon className="h-4 w-4" />
                             </Button>
                         
                       </PopoverHandler>
                       <PopoverContent>
-                        <Card color="transparent" shadow={false}>
-                          <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
-                            <div className="mb-1 flex flex-col gap-6">
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouveau nom
-                              </Typography>
-                              <Input
-                                size="lg"
-                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                labelProps={{
-                                  className: "before:content-none after:content-none",
-                                }}
-                                name="nom"
-                                value=""
-                                required
-                              />
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle année de sortie
-                              </Typography>
-                              <Input
-                                size="lg"
-                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                labelProps={{
-                                  className: "before:content-none after:content-none",
-                                }}
-                                name="newanneeSortie"
-                                value=""
-                                required
-                              />
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle marque
-                              </Typography>
-                              <Select 
-                                label="Marque"
-                                name="newMarque"
-                                size="lg"
-                              >
-                                    <Option value="">test</Option>
-                              </Select>
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle catégorie
-                              </Typography>
-                              <Select 
-                                label="Catégorie"
-                                size="lg"
-                                name="newCategorie"
-                              >
-                                
-                                    <Option value="">test</Option>
-                              </Select>
-                            </div>
-                            <Button className="mt-6" type="submit" fullWidth>
-                              Valider
+                        <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
+                          <Card className="w-full max-w-[24rem]">
+                            <CardBody>
+                              <Tabs value={type} className="overflow-visible">
+                                <TabsHeader className="relative z-0 ">
+                                  <Tab value="card" onClick={() => setType("card")}>
+                                    Etape 1
+                                  </Tab>
+                                  <Tab value="paypal" onClick={() => setType("paypal")}>
+                                    Etape 2
+                                  </Tab>
+                                </TabsHeader>
+                                <TabsBody
+                                  className="!overflow-x-hidden !overflow-y-visible"
+                                  animate={{
+                                    initial: {
+                                      x: type === "card" ? 400 : -400,
+                                    },
+                                    mount: {
+                                      x: 0,
+                                    },
+                                    unmount: {
+                                      x: type === "card" ? 400 : -400,
+                                    },
+                                  }}
+                                >
+                                  <TabPanel value="card" className="p-0">
+                                    <div className="mb-1 mt-3 flex flex-col gap-6">
+                                      <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                        Nom
+                                      </Typography>
+                                      <Input
+                                        size="lg"
+                                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                        labelProps={{
+                                          className: "before:content-none after:content-none",
+                                        }}
+                                        name="nom"
+                                        value=""
+                                        required
+                                      />
+                                      <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                        Prénom
+                                      </Typography>
+                                      <Input
+                                        size="lg"
+                                        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                        labelProps={{
+                                          className: "before:content-none after:content-none",
+                                        }}
+                                        name="newanneeSortie"
+                                        value=""
+                                        required
+                                      />
+                                      <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                        Profil
+                                      </Typography>
+                                      <Select 
+                                        label="Marque"
+                                        name="newMarque"
+                                        size="lg"
+                                      >
+                                            <Option value="">test</Option>
+                                      </Select>
+                                      <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                        Satut
+                                      </Typography>
+                                      <Select 
+                                        label="Catégorie"
+                                        size="lg"
+                                        name="newCategorie"
+                                      >
+                                      
+                                            <Option value="">test</Option>
+                                      </Select>
+                                    </div>
+                                  </TabPanel>
+                                  <TabPanel value="paypal" className="p-0">
+                                    <div className="mb-1 mt-3 flex flex-col gap-6">
+                                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                          Adresse
+                                        </Typography>
+                                        <Input
+                                          size="lg"
+                                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                          labelProps={{
+                                            className: "before:content-none after:content-none",
+                                          }}
+                                          name="nom"
+                                          value=""
+                                          required
+                                        />
+                                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                          Contact
+                                        </Typography>
+                                        <Input
+                                          size="lg"
+                                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                          labelProps={{
+                                            className: "before:content-none after:content-none",
+                                          }}
+                                          name="newanneeSortie"
+                                          value=""
+                                          required
+                                        />
+                                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                          Email
+                                        </Typography>
+                                        <Input
+                                          type="email"
+                                          size="lg"
+                                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                          labelProps={{
+                                            className: "before:content-none after:content-none",
+                                          }}
+                                          name="newanneeSortie"
+                                          value=""
+                                          required
+                                        />
+                                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                          Mot de passe
+                                        </Typography>
+                                        <Input
+                                          type="password"
+                                          size="lg"
+                                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                          labelProps={{
+                                            className: "before:content-none after:content-none",
+                                          }}
+                                          name="newanneeSortie"
+                                          value=""
+                                          required
+                                        />
+                                    </div>
+                                  </TabPanel>
+                                </TabsBody>
+                              </Tabs>
+                            </CardBody>
+                          </Card>
+                                        
+                          <Card color="transparent" shadow={false}>
+                            <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2" type="submit" fullWidth>
+                              Modifier
                             </Button>
-                          </form>
-                        </Card>
+                          </Card>
+                        </form>
                       </PopoverContent>
                     </Popover>
                       
 
                       <Tooltip content="Supprimer">
-                          <Button className="ml-5">
+                          <Button className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-5">
                             <TrashIcon className="h-4 w-4" />
                           </Button>
                       </Tooltip>

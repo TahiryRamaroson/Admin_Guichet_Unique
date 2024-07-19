@@ -9,12 +9,12 @@ import {
     Button,
     Input,
     Tooltip,
-    IconButton,
     Select, 
     Option,
+    Chip,
   } from "@material-tailwind/react";
 
-  import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+  import { PencilIcon, TrashIcon, PlusIcon, MagnifyingGlassIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 
   import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,47 +25,90 @@ import { jwtDecode } from "jwt-decode";
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
     <Card className="h-full w-full">
-      
-        <div className="mt-5 ml-10 mb-8 flex items-center justify-between gap-8">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-                Ajouter un Profil
-            </Typography>
-          </div>
+          <Typography
+            variant="h1"
+            color="black"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Liste des profils
+          </Typography>
+        <div className="mt-5 mb-5 flex items-center justify-center">
+        <Popover
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0, y: 25 },
+          }}
+        >
+          <PopoverHandler>
+            
+              <Button className="flex items-center text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                <PlusIcon className="h-4 w-4" />
+                <span className="ml-2">Ajout</span>
+              </Button>
+            
+          </PopoverHandler>
+          <PopoverContent>
+            <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
+
+              <Card className="w-full max-w-[24rem]">
+                <CardBody>
+                        <div className="mb-1 mt-3 flex flex-col gap-6">
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Nom
+                          </Typography>
+                          <Input
+                            size="lg"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                              className: "before:content-none after:content-none",
+                            }}
+                            name="nom"
+                            value=""
+                            required
+                          />
+                          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Description
+                          </Typography>
+                          <Input
+                            size="lg"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                              className: "before:content-none after:content-none",
+                            }}
+                            name="newanneeSortie"
+                            value=""
+                            required
+                          />
+                        </div>
+                </CardBody>
+              </Card>
+
+                <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2" type="submit" fullWidth>
+                  Ajouter
+                </Button>
+
+            </form>
+          </PopoverContent>
+        </Popover>
         </div>
+        
         <form>
-        <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
-          
-          <Input label="Nom du modèle"
-          name="nom"
-          value=""
-          required
-          />
+          <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
+                              
+            <Input label="recherche"
+            name="nom"
+            value=""
+            />
 
-          <Input label="Année de sortie" type="number"
-          name="anneeSortie"
-          value=""
-          required
-          />
-
-          <Select label="Marque"
-          >
-            <Option value="">test</Option>
-          </Select>
-
-          <Select label="Catégorie"
-          >
-            <Option value="">test</Option>
-          </Select>
-
-          <Button variant="gradient" type="submit">Valider</Button>
-        
-        </div>
+            <Button variant="outlined" type="submit" className="rounded-full border-2" color="green">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </Button>
+                              
+          </div>
         </form>
-        
       
       <CardBody className="overflow-scroll px-0">
-        <table className="mt-12 w-full min-w-max table-auto">
+        <table className="mt-6 w-full min-w-max table-auto">
           <thead>
             <tr>
               
@@ -73,56 +116,27 @@ import { jwtDecode } from "jwt-decode";
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="small"
+                    variant="medium"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
-                    Modèle
+                    Nom
                   </Typography>
                 </th>
                 <th
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="small"
+                    variant="medium"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
-                    Année de sortie
+                    Description
                   </Typography>
                 </th>
                 <th
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    Marque
-                  </Typography>
-                </th>
-                <th
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    Catégorie
-                  </Typography>
-                </th>
-                <th
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    
-                  </Typography>
                 </th>
               
             </tr>
@@ -135,35 +149,17 @@ import { jwtDecode } from "jwt-decode";
                             color="blue-gray"
                             className="font-normal"
                           >
+                            Rabe
+                          </Typography>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50 text-center">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
                             Koto
                           </Typography>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50 text-center">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            2000
-                          </Typography>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50 text-center">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            Bema
-                          </Typography>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50 text-center">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          4-4
-                        </Typography>
                     </td>
                     
                     <td className="p-4 border-b border-blue-gray-50">
@@ -176,19 +172,18 @@ import { jwtDecode } from "jwt-decode";
                     >
                       <PopoverHandler>
                         
-                          <Tooltip content="Modifier">
-                            <Button>
+                            <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <PencilIcon className="h-4 w-4" />
                             </Button>
-                            </Tooltip>
                         
                       </PopoverHandler>
                       <PopoverContent>
-                        <Card color="transparent" shadow={false}>
-                          <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
-                            <div className="mb-1 flex flex-col gap-6">
+                        <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
+                        <Card className="w-full max-w-[24rem]">
+                          <CardBody>
+                            <div className="mb-1 mt-3 flex flex-col gap-6">
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouveau nom
+                                Nom
                               </Typography>
                               <Input
                                 size="lg"
@@ -201,7 +196,7 @@ import { jwtDecode } from "jwt-decode";
                                 required
                               />
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle année de sortie
+                                Description
                               </Typography>
                               <Input
                                 size="lg"
@@ -213,43 +208,24 @@ import { jwtDecode } from "jwt-decode";
                                 value=""
                                 required
                               />
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle marque
-                              </Typography>
-                              <Select 
-                                label="Marque"
-                                name="newMarque"
-                                size="lg"
-                              >
-                                    <Option value="">test</Option>
-                              </Select>
-                              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                                Nouvelle catégorie
-                              </Typography>
-                              <Select 
-                                label="Catégorie"
-                                size="lg"
-                                name="newCategorie"
-                              >
-                                
-                                    <Option value="">test</Option>
-                              </Select>
                             </div>
-                            <Button className="mt-6" type="submit" fullWidth>
-                              Valider
-                            </Button>
-                          </form>
+                          </CardBody>
                         </Card>
+                                        
+                          <Card color="transparent" shadow={false}>
+                            <Button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2" type="submit" fullWidth>
+                              Modifier
+                            </Button>
+                          </Card>
+                        </form>
                       </PopoverContent>
                     </Popover>
                       
 
                       <Tooltip content="Supprimer">
-                        <IconButton variant="text" className="ml-10">
-                          <Button>
+                          <Button className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-5">
                             <TrashIcon className="h-4 w-4" />
                           </Button>
-                        </IconButton>
                       </Tooltip>
                     </td>
 
@@ -263,10 +239,10 @@ import { jwtDecode } from "jwt-decode";
         </Typography>
         <div className="flex gap-2">
           <Button variant="outlined" size="sm">
-            Previous
+            Précédent
           </Button>
           <Button variant="outlined" size="sm">
-            Next
+            Suivant
           </Button>
         </div>
       </CardFooter>
