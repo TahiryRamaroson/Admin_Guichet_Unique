@@ -7,7 +7,7 @@ import {useEffect} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-export function Gestion() {
+export function Parametrage() {
 
   const navigate = useNavigate();
 
@@ -81,4 +81,4 @@ export function Gestion() {
   );
 }
 
-export default Gestion;
+export default Parametrage;

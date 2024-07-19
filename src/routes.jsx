@@ -1,12 +1,13 @@
 import {
   ServerStackIcon,
   RectangleStackIcon,
-  ComputerDesktopIcon,
   CogIcon,
   HomeIcon,
   ArrowPathRoundedSquareIcon,
+  UserGroupIcon,
+  IdentificationIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Annonce, Gestion, Utilisateur, Profil} from "@/pages/dashboard";
+import { Home, Historique, Parametrage, Utilisateur, Profil} from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -27,30 +28,30 @@ export const routes = [
       {
         icon: <CogIcon {...icon} />,
         name: "Paramétrage",
-        path: "/gestion",
-        element: <Gestion />,
+        path: "/parametrage",
+        element: <Parametrage />,
+        op: "none",
+      },
+      {
+        icon: <UserGroupIcon {...icon} />,
+        name: "Gestion d'utilisateur",
+        path: "/utilisateur",
+        element: <Utilisateur />,
+        op: "",
+      },
+      {
+        icon: <IdentificationIcon {...icon} />,
+        name: "Gestion de profil",
+        path: "/profil",
+        element: <Profil />,
         op: "",
       },
       {
         icon: <ArrowPathRoundedSquareIcon {...icon} />,
         name: "Historique",
-        path: "/annonce",
-        element: <Annonce />,
+        path: "/historique",
+        element: <Historique />,
         op: "",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Utilisateur",
-        path: "/utilisateur",
-        element: <Utilisateur />,
-        op: "none",
-      },
-      {
-        icon: <ComputerDesktopIcon {...icon} />,
-        name: "Profil",
-        path: "/profil",
-        element: <Profil />,
-        op: "none",
       },
     ],
   },
