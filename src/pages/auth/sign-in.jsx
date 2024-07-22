@@ -57,7 +57,7 @@ export function SignIn() {
       localStorage.setItem("authToken", authToken);
   
       
-      navigate('/dashboard/home');
+      navigate('/page/accueil');
     } catch (error) {
       console.error('Erreur lors de la connexion :', error.message);
     }

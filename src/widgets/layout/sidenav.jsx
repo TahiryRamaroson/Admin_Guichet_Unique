@@ -19,7 +19,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
   };
 
   const filteredRoutes = routes
-  .filter(route => route.layout === 'dashboard');
+  .filter(route => route.layout === 'page');
 
   return (
     <aside
@@ -111,6 +111,6 @@ Sidenav.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-Sidenav.displayName = "/src/widgets/layout/sidnave.jsx";
+Sidenav.displayName = "/src/widgets/layout/sidenav.jsx";
 
 export default Sidenav;

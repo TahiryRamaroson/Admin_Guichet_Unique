@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import NumberFormatter from "@/widgets/layout/number-formatter";
 
-export function Home() {
+export function Accueil() {
 
   return (
     <div className="mt-12">
@@ -75,4 +75,4 @@ export function Home() {
   );
 }
 
-export default Home;
+export default Accueil;

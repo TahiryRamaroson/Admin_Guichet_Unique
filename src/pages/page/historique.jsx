@@ -25,6 +25,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+import DateFormatter from "@/widgets/layout/date-formatter";
 
 export function Historique() {
 
@@ -191,7 +192,8 @@ export function Historique() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            19/07/2024
+                            <DateFormatter date="2024-07-22" />
+
                           </Typography>
                     </td>
                     <td className="p-4 border-b border-blue-gray-50 text-center">
