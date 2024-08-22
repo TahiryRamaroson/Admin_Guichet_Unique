@@ -22,6 +22,9 @@ import { jwtDecode } from "jwt-decode";
     const [dataProfil, setDataProfil] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [formFiltre, setFormFiltre] = useState({
+      text: '',
+    });
 
       const checkToken = () => {
         const token = sessionStorage.getItem('authToken');
@@ -89,6 +92,48 @@ import { jwtDecode } from "jwt-decode";
       
     const handleNextPage = () => {
       setPageNumber((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
+
+    const changeFiltre = (e) => {
+      const { name, value } = e.target;
+      setFormFiltre({
+        ...formFiltre,
+        [name]: value,
+      });
+      console.log(formFiltre);
+    };
+
+    const submitFiltre = async (e) => {
+      e.preventDefault();
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apiFiltre = `https://localhost:7128/api/Profils/filtre/page/1`;
+
+      if (formFiltre.text == '') {
+        throw new Error('Champ vide.');
+      }
+  
+      try {
+        const response = await fetch(apiFiltre , {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(formFiltre),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+  
+        const data = await response.json();
+        console.log('Réponse de API Filtre :', data);
+        setDataProfil(data.profils);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
     };
 
     return (
@@ -159,12 +204,13 @@ import { jwtDecode } from "jwt-decode";
 
         </div>
         
-        <form>
+        <form onSubmit={submitFiltre}>
           <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
                               
             <Input label="recherche"
-            name="nom"
-            value=""
+            name="text"
+            value={formFiltre.text}
+            onChange={changeFiltre}
             />
 
             <Button variant="outlined" type="submit" className="rounded-full border-2" color="green">
