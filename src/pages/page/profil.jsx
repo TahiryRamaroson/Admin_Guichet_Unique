@@ -19,37 +19,77 @@ import { jwtDecode } from "jwt-decode";
   export function Profil() {
 
     const navigate = useNavigate();
+    const [dataProfil, setDataProfil] = useState([]);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    const checkToken = () => {
-      const token = sessionStorage.getItem('authToken');
-
-      if (!token) {
-        navigate('/auth/sign-in');
-      }
-
-      try {
-        const decodedtoken = jwtDecode(token);
-        const now = Date.now() / 1000;
-        if(now > decodedtoken.exp) {
+      const checkToken = () => {
+        const token = sessionStorage.getItem('authToken');
+  
+        if (!token) {
+          navigate('/auth/sign-in');
+        }
+  
+        try {
+          const decodedtoken = jwtDecode(token);
+          const now = Date.now() / 1000;
+          if(now > decodedtoken.exp) {
+            sessionStorage.removeItem('authToken');
+            navigate('/auth/sign-in');
+          }
+        } catch (error) {
           sessionStorage.removeItem('authToken');
           navigate('/auth/sign-in');
         }
-      } catch (error) {
-        sessionStorage.removeItem('authToken');
-        navigate('/auth/sign-in');
-      }
+  
+      };
 
-    };
-
-    checkToken();
-    }, [navigate]);
+      const getProfil = async (pageNumber) => {
+  
+        const apiProfil = `https://localhost:7128/api/Profils/page/${pageNumber}`; 
+  
+        try {
+          const reponseProfil = await fetch(apiProfil, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+            },
+          });
+          if (!reponseProfil.ok) {
+            throw new Error('Erreur lors de la demande.');
+          }
+          const data = await reponseProfil.json();
+          setDataProfil(data.profils);
+          setTotalPages(data.totalPages);
+          console.log("dataProfil après la mise à jour d'état :", data);
+        } catch (error) {
+          console.error("Error: " + error.message);
+        }
+  
+      };
 
     const [openAjout, setOpenAjout] = useState(false);
     const handleOpenAjout = () => setOpenAjout(!openAjout);
 
     const [openModif, setOpenModif] = useState(false);
     const handleOpenModif = () => setOpenModif(!openModif);
+
+    useEffect(() => {
+      checkToken();
+    }, [navigate]);
+      
+    useEffect(() => {
+      getProfil(pageNumber);
+    }, [pageNumber]);
+
+    const handlePreviousPage = () => {
+      setPageNumber((prevPage) => Math.max(prevPage - 1, 1));
+    };
+      
+    const handleNextPage = () => {
+      setPageNumber((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
 
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -140,7 +180,7 @@ import { jwtDecode } from "jwt-decode";
             <tr>
               
                 <th
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 text-start"
                 >
                   <Typography
                     variant="medium"
@@ -151,7 +191,7 @@ import { jwtDecode } from "jwt-decode";
                   </Typography>
                 </th>
                 <th
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 text-start"
                 >
                   <Typography
                     variant="medium"
@@ -169,23 +209,24 @@ import { jwtDecode } from "jwt-decode";
             </tr>
           </thead>
           <tbody>
-                  <tr>
-                    <td className="p-4 border-b border-blue-gray-50 text-center">
+            {dataProfil && dataProfil.map((item) => (
+                  <tr key={item.id}>
+                    <td className="p-4 border-b border-blue-gray-50">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            Rabe
+                            {item.nom}
                           </Typography>
                     </td>
-                    <td className="p-4 border-b border-blue-gray-50 text-center">
+                    <td className="p-4 border-b border-blue-gray-50">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            Koto
+                            {item.description}
                           </Typography>
                     </td>
                     
@@ -251,22 +292,23 @@ import { jwtDecode } from "jwt-decode";
                     </td>
 
                   </tr>
+              ))}
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 ">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 sur 10
-        </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
+        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            Page {pageNumber} sur {totalPages}
+          </Typography>
+          <div className="flex gap-2">
+          <Button variant="outlined" size="sm" onClick={handlePreviousPage}>
             Précédent
           </Button>
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handleNextPage}>
             Suivant
           </Button>
-        </div>
-      </CardFooter>
+          </div>
+        </CardFooter>
     </Card>
         
       </div>
