@@ -2,23 +2,15 @@ import {
   Card,
   CardBody,
   Input,
-  CardHeader,
   CardFooter,
   Typography,
   Button,
   Select,
   Option,
-  IconButton,
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-  Tooltip,
-  Carousel,
 
 } from "@material-tailwind/react";
 
 import {
-  InformationCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 
@@ -29,7 +21,32 @@ import DateFormatter from "@/widgets/layout/date-formatter";
 
 export function Historique() {
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = sessionStorage.getItem('authToken');
+
+      if (!token) {
+        navigate('/auth/sign-in');
+      }
+
+      try {
+        const decodedtoken = jwtDecode(token);
+        const now = Date.now() / 1000;
+        if(now > decodedtoken.exp) {
+          sessionStorage.removeItem('authToken');
+          navigate('/auth/sign-in');
+        }
+      } catch (error) {
+        sessionStorage.removeItem('authToken');
+        navigate('/auth/sign-in');
+      }
+
+    };
+
+    checkToken();
+    }, [navigate]);
     
 
   return (
@@ -213,7 +230,7 @@ export function Historique() {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 ">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          Page 1 sur 10
         </Typography>
         <div className="flex gap-2">
           <Button variant="outlined" size="sm">

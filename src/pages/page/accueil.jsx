@@ -18,6 +18,33 @@ import NumberFormatter from "@/widgets/layout/number-formatter";
 
 export function Accueil() {
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = sessionStorage.getItem('authToken');
+
+      if (!token) {
+        navigate('/auth/sign-in');
+      }
+
+      try {
+        const decodedtoken = jwtDecode(token);
+        const now = Date.now() / 1000;
+        if(now > decodedtoken.exp) {
+          sessionStorage.removeItem('authToken');
+          navigate('/auth/sign-in');
+        }
+      } catch (error) {
+        sessionStorage.removeItem('authToken');
+        navigate('/auth/sign-in');
+      }
+
+    };
+
+    checkToken();
+    }, [navigate]);
+
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-2">

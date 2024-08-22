@@ -9,18 +9,42 @@ import {
     Button,
     Input,
     Tooltip,
-    Select, 
-    Option,
-    Chip,
   } from "@material-tailwind/react";
 
-  import { PencilIcon, TrashIcon, PlusIcon, MagnifyingGlassIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
+  import { PencilIcon, TrashIcon, PlusIcon, MagnifyingGlassIcon} from "@heroicons/react/24/solid";
 
   import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
   
   export function Profil() {
+
+    const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = sessionStorage.getItem('authToken');
+
+      if (!token) {
+        navigate('/auth/sign-in');
+      }
+
+      try {
+        const decodedtoken = jwtDecode(token);
+        const now = Date.now() / 1000;
+        if(now > decodedtoken.exp) {
+          sessionStorage.removeItem('authToken');
+          navigate('/auth/sign-in');
+        }
+      } catch (error) {
+        sessionStorage.removeItem('authToken');
+        navigate('/auth/sign-in');
+      }
+
+    };
+
+    checkToken();
+    }, [navigate]);
 
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -235,7 +259,7 @@ import { jwtDecode } from "jwt-decode";
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 ">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          Page 1 sur 10
         </Typography>
         <div className="flex gap-2">
           <Button variant="outlined" size="sm">

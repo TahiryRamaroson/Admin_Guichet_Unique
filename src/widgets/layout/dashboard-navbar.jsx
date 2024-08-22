@@ -1,4 +1,5 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import React, {useEffect} from "react";
 import {
   Navbar,
   Typography,
@@ -16,6 +17,7 @@ import {
   setOpenSidenav,
 } from "@/context";
 import { PowerIcon } from "@heroicons/react/24/outline";
+import { jwtDecode } from "jwt-decode";
 
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -24,8 +26,20 @@ export function DashboardNavbar() {
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   const logout = () => {
-    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
   };
+
+  var token = sessionStorage.getItem("authToken");
+  var profil, utilisateur;
+
+  if (token) {
+    const decodedtoken = jwtDecode(token);
+    const now = Date.now() / 1000;
+    if(now > decodedtoken.exp) sessionStorage.removeItem('authToken');
+    console.log(decodedtoken);
+    profil = decodedtoken.profil;
+    utilisateur = decodedtoken.sub;
+  }
 
   return (
     <Navbar
@@ -66,7 +80,8 @@ export function DashboardNavbar() {
           </Typography>
         </div>
         <div className="flex items-center">
-          <Chip variant="ghost" value="Admin" className="mr-5" icon={<UserCircleIcon/>} />
+          <Chip variant="ghost" value={utilisateur} color="green" className="mr-5" icon={<UserCircleIcon/>} />
+          <Chip variant="ghost" value={profil} color="teal" className="mr-5" />
           <IconButton
             variant="text"
             color="blue-gray"
