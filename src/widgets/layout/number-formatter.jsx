@@ -13,7 +13,6 @@ NumberFormatter.defaultProps = {
   
 NumberFormatter.propTypes = {
     number: PropTypes.number,
-    routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default NumberFormatter;

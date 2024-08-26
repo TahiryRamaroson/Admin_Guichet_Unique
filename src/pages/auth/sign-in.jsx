@@ -1,3 +1,4 @@
+import { api_url } from "@/configs/api-url";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import {
   Input,
@@ -34,14 +35,13 @@ export function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const apiUrl = "https://localhost:7128/api/Auth/admin/login"; 
+    const apiUrl = `${api_url}/api/Auth/admin/login`; 
   
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + votreToken,
         },
         body: JSON.stringify(formData),
       });
@@ -78,8 +78,7 @@ export function SignIn() {
           <Typography variant="h2" className="font-bold mb-4">Authentification</Typography>
           <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Bienvenue</Typography>
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2"  
-              onSubmit={handleSubmit}>
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleSubmit}>
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
               Identifiant

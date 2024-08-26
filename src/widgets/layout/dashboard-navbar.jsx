@@ -1,5 +1,4 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import React, {useEffect} from "react";
+import { useLocation, Link} from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -36,7 +35,6 @@ export function DashboardNavbar() {
     const decodedtoken = jwtDecode(token);
     const now = Date.now() / 1000;
     if(now > decodedtoken.exp) sessionStorage.removeItem('authToken');
-    console.log(decodedtoken);
     profil = decodedtoken.profil;
     utilisateur = decodedtoken.sub;
   }
@@ -98,7 +96,7 @@ export function DashboardNavbar() {
               onClick={logout}
             >
               <PowerIcon className="h-8 w-8 text-red-500" />
-              <Typography variant="medium" color="blue-gray">Déconnexion</Typography>
+              <Typography variant="paragraph" color="blue-gray">Déconnexion</Typography>
             </Button>
             <IconButton
               variant="text"

@@ -13,7 +13,6 @@ DateFormatter.defaultProps = {
   
 DateFormatter.propTypes = {
     date: PropTypes.any,
-    routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default DateFormatter;
