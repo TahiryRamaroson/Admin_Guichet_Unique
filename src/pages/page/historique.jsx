@@ -57,7 +57,7 @@ export function Historique() {
             color="black"
             className="mt-6 mb-6 flex justify-center gap-1 text-4xl font-normal"
           >
-            Historique de l&apos;utilisation de l&apos;application
+            Historique d&apos;utilisation de l&apos;application
           </Typography>
         
         <form>

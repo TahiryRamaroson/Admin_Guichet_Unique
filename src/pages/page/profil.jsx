@@ -370,7 +370,8 @@ import {
         <form onSubmit={submitFiltre}>
           <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
                               
-            <Input label="recherche"
+            <Input 
+            label="recherche"
             name="text"
             color="green"
             value={formFiltre.text}
