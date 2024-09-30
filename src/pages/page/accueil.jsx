@@ -50,7 +50,7 @@ export function Accueil() {
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-2">
         
           <StatisticsCard
-            title="Nombre d'utilisateur"
+            title="Nombre d'utilisateur inscrit"
             color="green"
             icon={React.createElement(UsersIcon, {
               className: "w-6 h-6 text-white",
@@ -62,7 +62,7 @@ export function Accueil() {
             }
           />
           <StatisticsCard
-            title="Nombre de ménage"
+            title="Nombre de ménage enregistré"
             color="green"
             icon={React.createElement(UserGroupIcon, {
               className: "w-6 h-6 text-white",
@@ -70,6 +70,30 @@ export function Accueil() {
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
                 <strong><NumberFormatter number={9251} /></strong>
+              </Typography>
+            }
+          />
+          <StatisticsCard
+            title="Nombre de Région dans la base de recensement"
+            color="green"
+            icon={React.createElement(MapPinIcon, {
+              className: "w-6 h-6 text-white",
+            })}
+            footer={
+              <Typography className="font-normal text-blue-gray-600 text-center">
+                <strong><NumberFormatter number={42} /></strong>
+              </Typography>
+            }
+          />
+          <StatisticsCard
+            title="Nombre de District dans la base de recensement"
+            color="green"
+            icon={React.createElement(MapPinIcon, {
+              className: "w-6 h-6 text-white",
+            })}
+            footer={
+              <Typography className="font-normal text-blue-gray-600 text-center">
+                <strong><NumberFormatter number={42} /></strong>
               </Typography>
             }
           />

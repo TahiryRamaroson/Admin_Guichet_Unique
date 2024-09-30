@@ -15,8 +15,8 @@ export function SignIn() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: 'zafy@gmail.com',
-    motDePasse: 'zafy',
+    email: '',
+    motDePasse: '',
   });
 
   const [errorMessage, setErrorMessage] = useState('');
