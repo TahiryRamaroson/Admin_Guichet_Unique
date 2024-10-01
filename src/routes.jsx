@@ -7,8 +7,9 @@ import {
   UserGroupIcon,
   IdentificationIcon,
 } from "@heroicons/react/24/solid";
-import { Accueil, Historique, Parametrage, Utilisateur, Profil} from "@/pages/page";
+import { Accueil, Historique, Parametrage, Utilisateur, Profil, Localisation} from "@/pages/page";
 import { SignIn, SignUp } from "@/pages/auth";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -26,13 +27,6 @@ export const routes = [
         op: "",
       },
       {
-        icon: <CogIcon {...icon} />,
-        name: "Paramétrage",
-        path: "/parametrage",
-        element: <Parametrage />,
-        op: "none",
-      },
-      {
         icon: <UserGroupIcon {...icon} />,
         name: "Gestion d'utilisateur",
         path: "/utilisateur",
@@ -44,6 +38,20 @@ export const routes = [
         name: "Gestion de profil",
         path: "/profil",
         element: <Profil />,
+        op: "",
+      },
+      {
+        icon: <MapPinIcon {...icon} />,
+        name: "Gestion de localisation",
+        path: "/localisation",
+        element: <Localisation />,
+        op: "",
+      },
+      {
+        icon: <CogIcon {...icon} />,
+        name: "Paramétrage",
+        path: "/parametrage",
+        element: <Parametrage />,
         op: "",
       },
       {
