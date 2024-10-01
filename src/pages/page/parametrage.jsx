@@ -39,7 +39,7 @@ export function Parametrage() {
   return (
     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 mb-10 place-items-center">
 
-      <Link to="/page/utilisateur"> 
+      <Link to="/page/parametrage-action-plainte"> 
         <Card color="green" variant="gradient" className="w-80 max-w-[20rem] p-8 mb-10">
           <CardBody
             floated={false}
@@ -58,7 +58,7 @@ export function Parametrage() {
         </Card>
       </Link>
 
-      <Link to="/page/utilisateur"> 
+      <Link to="/page/parametrage-antecedent-medical"> 
         <Card color="green" variant="gradient" className="w-80 max-w-[20rem] p-8 mb-10">
           <CardBody
             floated={false}
@@ -77,7 +77,7 @@ export function Parametrage() {
         </Card>
       </Link>
 
-      <Link to="/page/utilisateur"> 
+      <Link to="/page/parametrage-categorie-plainte"> 
         <Card color="green" variant="gradient" className="w-80 max-w-[20rem] p-8 mb-10">
           <CardBody
             floated={false}
@@ -90,13 +90,13 @@ export function Parametrage() {
               color="white"
               className="mt-6 flex justify-center gap-1 text-4xl font-normal"
             >
-              Catégorie des plaintes
+              Catégorie de plaintes
             </Typography>
           </CardBody>
         </Card>
       </Link>
 
-      <Link to="/page/utilisateur"> 
+      <Link to="/page/parametrage-cause-deces"> 
         <Card color="green" variant="gradient" className="w-80 max-w-[20rem] p-8 mb-10">
           <CardBody
             floated={false}
@@ -115,7 +115,7 @@ export function Parametrage() {
         </Card>
       </Link>
 
-      <Link to="/page/utilisateur"> 
+      <Link to="/page/parametrage-motif-migration"> 
         <Card color="green" variant="gradient" className="w-80 max-w-[20rem] p-8 mb-10">
           <CardBody
             floated={false}
