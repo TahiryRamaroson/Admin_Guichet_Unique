@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from "react";
+import { api_url } from "@/configs/api-url";
 import {
   Typography,
-  Card,
-  CardBody,
-  CardHeader,
 } from "@material-tailwind/react";
-import {
-  EllipsisVerticalIcon,
-  ArrowUpIcon,
-} from "@heroicons/react/24/outline";
-import Chart from "react-apexcharts";
 import { StatisticsCard } from "@/widgets/cards";
 import { UsersIcon, UserGroupIcon, MapPinIcon} from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
@@ -20,30 +13,187 @@ export function Accueil() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkToken = () => {
-      const token = sessionStorage.getItem('authToken');
+  const [nombreUtilisateur, setNombreUtilisateur] = useState(0);
+  const [nombreMenage, setNombreMenage] = useState(0);
+  const [nombreRegion, setNombreRegion] = useState(0);
+  const [nombreDistrict, setNombreDistrict] = useState(0);
+  const [nombreCommune, setNombreCommune] = useState(0);
+  const [nombreFokontany, setNombreFokontany] = useState(0);
 
-      if (!token) {
-        navigate('/auth/sign-in');
-      }
+  const checkToken = () => {
+    const token = sessionStorage.getItem('authToken');
 
-      try {
-        const decodedtoken = jwtDecode(token);
-        const now = Date.now() / 1000;
-        if(now > decodedtoken.exp) {
-          sessionStorage.removeItem('authToken');
-          navigate('/auth/sign-in');
-        }
-      } catch (error) {
+    if (!token) {
+      navigate('/auth/sign-in');
+    }
+
+    try {
+      const decodedtoken = jwtDecode(token);
+      const now = Date.now() / 1000;
+      if(now > decodedtoken.exp) {
         sessionStorage.removeItem('authToken');
         navigate('/auth/sign-in');
       }
+    } catch (error) {
+      sessionStorage.removeItem('authToken');
+      navigate('/auth/sign-in');
+    }
 
-    };
+  };
 
+  const getNombreUtilisateur = async () => {
+  
+    const apiNombreUtilisateur = `${api_url}/api/StatistiqueInterne/nombreUtilisateur`; 
+
+    try {
+      const reponseNombreUtilisateur = await fetch(apiNombreUtilisateur, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreUtilisateur.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreUtilisateur.json();
+      setNombreUtilisateur(data);
+      console.log("dataNombreUtilisateur après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  const getNombreMenage = async () => {
+  
+    const apiNombreMenage = `${api_url}/api/StatistiqueInterne/nombreMenage`; 
+
+    try {
+      const reponseNombreMenage = await fetch(apiNombreMenage, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreMenage.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreMenage.json();
+      setNombreMenage(data);
+      console.log("dataNombreMenage après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  const getNombreRegion = async () => {
+  
+    const apiNombreRegion = `${api_url}/api/StatistiqueInterne/nombreRegion`; 
+
+    try {
+      const reponseNombreRegion = await fetch(apiNombreRegion, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreRegion.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreRegion.json();
+      setNombreRegion(data);
+      console.log("dataNombreRegion après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  const getNombreDistrict = async () => {
+  
+    const apiNombreDistrict = `${api_url}/api/StatistiqueInterne/nombreDistrict`; 
+
+    try {
+      const reponseNombreDistrict = await fetch(apiNombreDistrict, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreDistrict.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreDistrict.json();
+      setNombreDistrict(data);
+      console.log("dataNombreDistrict après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  const getNombreCommune = async () => {
+  
+    const apiNombreCommune = `${api_url}/api/StatistiqueInterne/nombreCommune`; 
+
+    try {
+      const reponseNombreCommune = await fetch(apiNombreCommune, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreCommune.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreCommune.json();
+      setNombreCommune(data);
+      console.log("dataNombreCommune après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  const getNombreFokontany = async () => {
+  
+    const apiNombreFokontany = `${api_url}/api/StatistiqueInterne/nombreFokontany`; 
+
+    try {
+      const reponseNombreFokontany = await fetch(apiNombreFokontany, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('authToken'),
+        },
+      });
+      if (!reponseNombreFokontany.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponseNombreFokontany.json();
+      setNombreFokontany(data);
+      console.log("dataNombreFokontany après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
+
+  };
+
+  useEffect(() => {
     checkToken();
-    }, [navigate]);
+    getNombreUtilisateur();
+    getNombreMenage();
+    getNombreRegion();
+    getNombreDistrict();
+    getNombreCommune();
+    getNombreFokontany();
+  }, [navigate]);
 
   return (
     <div className="mt-12">
@@ -57,7 +207,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={15} /></strong>
+                <strong><NumberFormatter number={nombreUtilisateur} /></strong>
               </Typography>
             }
           />
@@ -69,7 +219,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={9251} /></strong>
+                <strong><NumberFormatter number={nombreMenage} /></strong>
               </Typography>
             }
           />
@@ -81,7 +231,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={42} /></strong>
+                <strong><NumberFormatter number={nombreRegion} /></strong>
               </Typography>
             }
           />
@@ -93,7 +243,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={42} /></strong>
+                <strong><NumberFormatter number={nombreDistrict} /></strong>
               </Typography>
             }
           />
@@ -105,7 +255,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={42} /></strong>
+                <strong><NumberFormatter number={nombreCommune} /></strong>
               </Typography>
             }
           />
@@ -117,7 +267,7 @@ export function Accueil() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong><NumberFormatter number={42} /></strong>
+                <strong><NumberFormatter number={nombreFokontany} /></strong>
               </Typography>
             }
           />
