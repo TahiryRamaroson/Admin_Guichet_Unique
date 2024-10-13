@@ -463,7 +463,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -474,7 +474,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -485,7 +485,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -496,7 +496,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -507,7 +507,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -518,7 +518,7 @@ export function Historique() {
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                 >
                   <Typography
-                    variant="medium"
+                    variant="paragraph"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >

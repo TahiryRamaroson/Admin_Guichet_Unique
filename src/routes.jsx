@@ -38,7 +38,7 @@ export const routes = [
         name: "Gestion de profil",
         path: "/profil",
         element: <Profil />,
-        op: "",
+        op: "none",
       },
       {
         icon: <MapPinIcon {...icon} />,
